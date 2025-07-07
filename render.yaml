@@ -7,8 +7,8 @@ services:
     buildCommand: |
       bundle install
       yarn install
-      bundle exec rake assets:precompile
-      bundle exec rake db:migrate
+      RAILS_ENV=production SECRET_KEY_BASE=$SECRET_KEY_BASE bundle exec rake assets:precompile
+      RAILS_ENV=production bundle exec rake db:migrate
     startCommand: bundle exec puma -C config/puma.rb
     envVars:
       - key: RAILS_ENV
