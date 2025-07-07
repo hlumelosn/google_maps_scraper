@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: google_maps_scraper
+    env: ruby
+    region: frankfurt
+    plan: free
+    buildCommand: |
+      bundle install
+      yarn install
+      bundle exec rake assets:precompile
+      bundle exec rake db:migrate
+    startCommand: bundle exec puma -C config/puma.rb
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: SECRET_KEY_BASE
+        sync: false
+      - key: DATABASE_URL
+        sync: false
